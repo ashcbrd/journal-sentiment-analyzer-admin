@@ -1,0 +1,104 @@
+{
+  "data": [
+    {
+      "_id": "661a53cd704ab3e24c34c1f0",
+      "firstName": "John",
+      "lastName": "Doe",
+      "userName": "johndoe",
+      "email": "john@school.com",
+      "course_of_study": "Computer Science",
+      "year": 2,
+      "password": "password123"
+    },
+    {
+      "_id": "2a1b3cd704ab3e24c34c1f1",
+      "firstName": "Alice",
+      "lastName": "Smith",
+      "userName": "alicesmith",
+      "email": "alice@school.com",
+      "course_of_study": "Electrical Engineering",
+      "year": 3,
+      "password": "password456"
+    },
+    {
+      "_id": "3b2c1de704ab3e24c34c1f2",
+      "firstName": "Emily",
+      "lastName": "Johnson",
+      "userName": "emilyjohnson",
+      "email": "emily@school.com",
+      "course_of_study": "Biology",
+      "year": 1,
+      "password": "password789"
+    },
+    {
+      "_id": "4c3d2e704ab3e24c34c1f3",
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "userName": "michaelbrown",
+      "email": "michael@school.com",
+      "course_of_study": "Business Administration",
+      "year": 4,
+      "password": "passwordabc"
+    },
+    {
+      "_id": "5d4e5f704ab3e24c34c1f4",
+      "firstName": "Sophia",
+      "lastName": "Garcia",
+      "userName": "sophiagarcia",
+      "email": "sophia@school.com",
+      "course_of_study": "Psychology",
+      "year": 2,
+      "password": "passworddef"
+    },
+    {
+      "_id": "6e7f8g704ab3e24c34c1f5",
+      "firstName": "Jacob",
+      "lastName": "Martinez",
+      "userName": "jacobmartinez",
+      "email": "jacob@school.com",
+      "course_of_study": "Mechanical Engineering",
+      "year": 3,
+      "password": "passwordghi"
+    },
+    {
+      "_id": "7f6e5d704ab3e24c34c1f6",
+      "firstName": "Isabella",
+      "lastName": "Hernandez",
+      "userName": "isabellahernandez",
+      "email": "isabella@school.com",
+      "course_of_study": "Sociology",
+      "year": 1,
+      "password": "passwordjkl"
+    },
+    {
+      "_id": "8g7f6e704ab3e24c34c1f7",
+      "firstName": "William",
+      "lastName": "Young",
+      "userName": "williamyoung",
+      "email": "william@school.com",
+      "course_of_study": "Political Science",
+      "year": 4,
+      "password": "passwordmno"
+    },
+    {
+      "_id": "9h8g7f704ab3e24c34c1f8",
+      "firstName": "Emma",
+      "lastName": "King",
+      "userName": "emmaking",
+      "email": "emma@school.com",
+      "course_of_study": "English Literature",
+      "year": 2,
+      "password": "passwordpqr"
+    },
+    {
+      "_id": "0i9h8g704ab3e24c34c1f9",
+      "firstName": "James",
+      "lastName": "Wright",
+      "userName": "jameswright",
+      "email": "james@school.com",
+      "course_of_study": "History",
+      "year": 3,
+      "password": "passwordstu"
+    }
+  ]
+}
