@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex gap-x-10 w-full bg-zinc-100">
+      <body className="w-full bg-zinc-100">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

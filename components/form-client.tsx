@@ -1,30 +1,55 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { register, login } from "../services/auth-service";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 interface FormClientProps {
   name: string;
-  onSubmit: (data: any) => void;
 }
 
-const FormClient: React.FC<FormClientProps> = ({ name, onSubmit }) => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+}
+
+const FormClient: React.FC<FormClientProps> = ({ name }) => {
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
   });
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(formData);
+    try {
+      if (name === "login") {
+        try {
+          const loginResponse = await login(formData.email, formData.password);
+          console.log("Login Success:", loginResponse);
+          router.push("/students");
+        } catch (error) {}
+      } else if (name === "register") {
+        const registerResponse = await register(formData);
+        console.log("Register Success:", registerResponse);
+        router.push("/students");
+      }
+    } catch (error) {
+      console.error("Error:", error || "Unknown Error");
+    }
   };
 
   return (
@@ -32,85 +57,73 @@ const FormClient: React.FC<FormClientProps> = ({ name, onSubmit }) => {
       <div className="flex flex-col gap-4">
         {name === "login" ? (
           <>
-            <Label htmlFor="email" className="text-gray-800">
-              Email
-            </Label>
-            <input
+            <Label htmlFor="email">Email</Label>
+            <Input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="p-2 rounded border border-gray-300 text-gray-800 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
               required
+              className="p-2 px-3"
             />
-            <Label htmlFor="password" className="text-gray-800">
-              Password
-            </Label>
-            <input
+            <Label htmlFor="password">Password</Label>
+            <Input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="p-2 rounded border border-gray-300 text-gray-800 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
               required
+              className="p-2 px-3"
             />
           </>
         ) : (
           <>
-            <Label htmlFor="firstName" className="text-gray-800">
-              First Name
-            </Label>
-            <input
+            <Label htmlFor="firstName">First Name</Label>
+            <Input
               type="text"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="p-2 rounded border border-gray-300 text-gray-800 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
               required
+              className="p-2 px-3"
             />
-            <Label htmlFor="lastName" className="text-gray-800">
-              Last Name
-            </Label>
-            <input
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
               type="text"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className="p-2 rounded border border-gray-300 text-gray-800 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
               required
+              className="p-2 px-3"
             />
-            <Label htmlFor="email" className="text-gray-800">
-              Email
-            </Label>
-            <input
+            <Label htmlFor="email">Email</Label>
+            <Input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="p-2 rounded border border-gray-300 text-gray-800 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
               required
+              className="p-2 px-3"
             />
-            <Label htmlFor="password" className="text-gray-800">
-              Password
-            </Label>
-            <input
+            <Label htmlFor="password">Password</Label>
+            <Input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="p-2 rounded border border-gray-300 text-gray-800 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
               required
+              className="p-2 px-3"
             />
           </>
         )}
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-full mt-6 capitalize text-md"
+        >
+          {name}
+        </Button>
       </div>
-      <Button
-        type="submit"
-        variant={"primary"}
-        className="w-full mt-6 capitalize text-md"
-      >
-        {name}
-      </Button>
     </form>
   );
 };

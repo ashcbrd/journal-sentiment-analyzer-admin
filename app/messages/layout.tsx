@@ -1,7 +1,7 @@
 import PageHeader from "@/components/page-header";
 import SideNavigation from "@/containers/side-navigation";
 
-export default function StudentsPageLayout({
+export default function JournalsPageLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -10,8 +10,8 @@ export default function StudentsPageLayout({
     <>
       <SideNavigation />
       <div className="ml-[100px] px-10 py-4 h-screen">
-        <PageHeader>Students</PageHeader>
-        <div className="h-[80%] overflow-y-scroll">{children}</div>
+        <PageHeader>Messages</PageHeader>
+        <div>{children}</div>
       </div>
     </>
   );
