@@ -116,11 +116,7 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
             />
           </>
         )}
-        <Button
-          type="submit"
-          variant="primary"
-          className="w-full mt-6 capitalize text-md"
-        >
+        <Button type="submit" className="w-full mt-6 capitalize text-md">
           {name}
         </Button>
       </div>
