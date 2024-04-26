@@ -20,6 +20,7 @@ export default function JournalPage({ params }: { params: { slug: string } }) {
         </div>
         <p className="mt-4">{journal?.entry}</p>
       </div>
+      {/* @ts-ignore */}
       <JournalClient sentiments={journal?.sentiment_score} />
     </div>
   );
