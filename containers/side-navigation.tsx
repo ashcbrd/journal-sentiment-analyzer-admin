@@ -13,8 +13,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ThemeToggle } from "@/components/theme-toggle";
+import ProfileAvatar from "@/components/profile-avatar";
+import response from "../data/profile.json";
 
 const icons = [
   <HiMiniUserGroup key="userGroupIcon" size={30} />,
@@ -24,6 +24,7 @@ const icons = [
 
 const SideNavigation = () => {
   const pathname = usePathname();
+  const profile = response.data;
 
   return (
     <nav className="h-screen z-[999] w-[120px] p-4 fixed">
@@ -51,11 +52,7 @@ const SideNavigation = () => {
             );
           })}
         </div>
-
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <ProfileAvatar profile={profile} />
       </div>
     </nav>
   );

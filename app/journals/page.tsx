@@ -17,7 +17,7 @@ const JournalPage = () => {
     <div>
       <div className="w-full grid grid-cols-3 gap-10">
         {journals.map((journal, index) => (
-          <Link href={`/journal/${journal._id}`} key={index}>
+          <Link href={`/journal/student/${journal._id}`} key={index}>
             <Card className="hover:bg-zinc-50">
               <CardHeader>
                 <CardTitle>{journal.title}</CardTitle>

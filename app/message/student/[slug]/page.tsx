@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-import response from "../../../data/students.json";
+import response from "../../../../data/students.json";
 import BackButtonClient from "@/components/back-button-client";
 import { Input } from "@/components/ui/input";
 
