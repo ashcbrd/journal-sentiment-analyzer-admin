@@ -1,0 +1,9 @@
+{
+  "data": {
+    "_id": "1234",
+    "firstName": "Admin",
+    "lastName": "Account",
+    "email": "admin@test.com",
+    "imgSrc": "https://github.com/shadcn.png"
+  }
+}

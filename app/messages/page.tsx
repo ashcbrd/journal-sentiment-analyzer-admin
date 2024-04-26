@@ -13,7 +13,7 @@ const ChatPage = () => {
           <div key={index} className="flex flex-col items-center gap-y-2">
             <Link
               key={index}
-              href={`/message/${student._id}`}
+              href={`/message/student/${student._id}`}
               className="rounded-full bg-zinc-300 border border-blue-300 w-16 h-16 flex items-center justify-center"
             >
               <Avatar>
