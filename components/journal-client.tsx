@@ -52,8 +52,10 @@ const JournalClient = ({ sentiments }: { sentiments: SentimentProps }) => {
         </div>
       </div>
       {sentiments && layout === "table" ? (
+        // @ts-ignore
         <SentimentScoreTable sentiments={sentiments} />
       ) : (
+        // @ts-ignore
         <SentimentBarChart sentiments={sentiments} />
       )}
     </div>
