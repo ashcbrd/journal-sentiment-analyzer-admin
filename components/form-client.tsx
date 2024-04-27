@@ -29,6 +29,7 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("api base url:  ", process.env.BASE_API_URL)
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -38,6 +39,7 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
     try {
       if (name === "login") {
         try {
+         
           const loginResponse = await login(formData.email, formData.password);
           console.log("Login Success:", loginResponse);
           router.push("/students");
