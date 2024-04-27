@@ -6,7 +6,7 @@
       "lastName": "Doe",
       "userName": "johndoe",
       "email": "john@school.com",
-      "course_of_study": "Computer Science",
+      "course": "Computer Science",
       "year": 2,
       "password": "password123"
     },
@@ -16,7 +16,7 @@
       "lastName": "Smith",
       "userName": "alicesmith",
       "email": "alice@school.com",
-      "course_of_study": "Electrical Engineering",
+      "course": "Electrical Engineering",
       "year": 3,
       "password": "password456"
     },
@@ -26,7 +26,7 @@
       "lastName": "Johnson",
       "userName": "emilyjohnson",
       "email": "emily@school.com",
-      "course_of_study": "Biology",
+      "course": "Biology",
       "year": 1,
       "password": "password789"
     },
@@ -36,7 +36,7 @@
       "lastName": "Brown",
       "userName": "michaelbrown",
       "email": "michael@school.com",
-      "course_of_study": "Business Administration",
+      "course": "Business Administration",
       "year": 4,
       "password": "passwordabc"
     },
@@ -46,7 +46,7 @@
       "lastName": "Garcia",
       "userName": "sophiagarcia",
       "email": "sophia@school.com",
-      "course_of_study": "Psychology",
+      "course": "Psychology",
       "year": 2,
       "password": "passworddef"
     },
@@ -56,7 +56,7 @@
       "lastName": "Martinez",
       "userName": "jacobmartinez",
       "email": "jacob@school.com",
-      "course_of_study": "Mechanical Engineering",
+      "course": "Mechanical Engineering",
       "year": 3,
       "password": "passwordghi"
     },
@@ -66,7 +66,7 @@
       "lastName": "Hernandez",
       "userName": "isabellahernandez",
       "email": "isabella@school.com",
-      "course_of_study": "Sociology",
+      "course": "Sociology",
       "year": 1,
       "password": "passwordjkl"
     },
@@ -76,7 +76,7 @@
       "lastName": "Young",
       "userName": "williamyoung",
       "email": "william@school.com",
-      "course_of_study": "Political Science",
+      "course": "Political Science",
       "year": 4,
       "password": "passwordmno"
     },
@@ -86,7 +86,7 @@
       "lastName": "King",
       "userName": "emmaking",
       "email": "emma@school.com",
-      "course_of_study": "English Literature",
+      "course": "English Literature",
       "year": 2,
       "password": "passwordpqr"
     },
@@ -96,7 +96,7 @@
       "lastName": "Wright",
       "userName": "jameswright",
       "email": "james@school.com",
-      "course_of_study": "History",
+      "course": "History",
       "year": 3,
       "password": "passwordstu"
     }

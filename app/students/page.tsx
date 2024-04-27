@@ -25,7 +25,7 @@ const DashboardPage = () => {
           <TableRow>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Course of Study</TableHead>
+            <TableHead>Course</TableHead>
             <TableHead>Year</TableHead>
           </TableRow>
         </TableHeader>
@@ -36,7 +36,7 @@ const DashboardPage = () => {
                 {student.firstName} {student.lastName}
               </TableCell>
               <TableCell>{student.email}</TableCell>
-              <TableCell>{student.course_of_study}</TableCell>
+              <TableCell>{student.course}</TableCell>
               <TableCell>{student.year}</TableCell>
             </TableRow>
           ))}
