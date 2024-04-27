@@ -1,3 +1,4 @@
+
 import {
   Table,
   TableBody,
@@ -9,9 +10,12 @@ import {
 } from "@/components/ui/table";
 
 import response from "../../data/students.json";
+import { useEffect } from "react";
 
 const DashboardPage = () => {
   const students = response.data;
+
+
 
   return (
     <div className="w-full">
