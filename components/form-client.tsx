@@ -6,6 +6,7 @@ import { register, login } from "../services/auth-service";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useUser } from "@/context/user-context";
 
 interface FormClientProps {
   name: string;
@@ -27,9 +28,10 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
   });
   const [error, setError] = useState(null);
   const router = useRouter();
+  const { setUser } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("api base url:  ", process.env.BASE_API_URL)
+    console.log("api base url:  ", process.env.BASE_API_URL);
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -39,14 +41,15 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
     try {
       if (name === "login") {
         try {
-         
           const loginResponse = await login(formData.email, formData.password);
           console.log("Login Success:", loginResponse);
+          setUser(loginResponse);
           router.push("/students");
         } catch (error) {}
       } else if (name === "register") {
         const registerResponse = await register(formData);
         console.log("Register Success:", registerResponse);
+        setUser(registerResponse);
         router.push("/students");
       }
     } catch (error) {

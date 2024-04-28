@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import ProfileAvatar from "@/components/profile-avatar";
-import response from "../data/profile.json";
+import { useUser } from "@/context/user-context";
 
 const icons = [
   <HiMiniUserGroup key="userGroupIcon" size={30} />,
@@ -24,7 +24,7 @@ const icons = [
 
 const SideNavigation = () => {
   const pathname = usePathname();
-  const profile = response.data;
+  const { user } = useUser();
 
   return (
     <nav className="h-screen z-[999] w-[120px] p-4 fixed">
@@ -52,7 +52,7 @@ const SideNavigation = () => {
             );
           })}
         </div>
-        <ProfileAvatar profile={profile} />
+        <ProfileAvatar user={user} />
       </div>
     </nav>
   );

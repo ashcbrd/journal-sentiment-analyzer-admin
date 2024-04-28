@@ -7,35 +7,55 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-interface IProfileData {
-  _id: string;
-  imgSrc: string;
-  firstName: string;
-  lastName: string;
-}
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { User, useUser } from "@/context/user-context";
 
 interface IProfile {
-  profile: IProfileData;
+  user: User;
 }
 
-const ProfileAvatar: React.FC<IProfile> = ({ profile }) => {
+const ProfileAvatar: React.FC<IProfile> = ({ user }) => {
+  const { logout } = useUser();
+
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src={profile.imgSrc} alt="" />
+            <AvatarImage src={""} alt="" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="z-[9999]">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <Link href={`/profile/${profile._id}`}>
+          <Link href={`/profile/${user._id}`}>
             <DropdownMenuItem>Profile</DropdownMenuItem>
           </Link>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <Dialog>
+              <DialogTrigger>Log Out</DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Are you sure you want to log out?</DialogTitle>
+                  <Button onClick={logout} className="ml-auto">
+                    Log Out
+                  </Button>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

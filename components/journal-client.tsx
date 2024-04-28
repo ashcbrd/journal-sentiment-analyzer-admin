@@ -86,50 +86,54 @@ const SentimentBarChart: React.FC<SentimentProps> = ({ sentiments }) => {
   );
 };
 
+const sliceNumbers = [
+  {
+    first: 0,
+    second: 7,
+  },
+  {
+    first: 7,
+    second: 14,
+  },
+  {
+    first: 14,
+    second: 21,
+  },
+  {
+    first: 21,
+    second: 28,
+  },
+];
+
 const SentimentScoreTable: React.FC<SentimentProps> = ({ sentiments }) => {
   return (
     <div className="flex flex-col space-y-6">
-      <Table className="border">
-        <TableHeader>
-          <TableRow className="bg-zinc-200">
-            {sentiments.slice(0, 14).map((sentiment, index) => (
-              <TableHead key={index} className="capitalize font-md text-xs">
-                {sentiment.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            {sentiments.slice(0, 14).map((sentiment, index) => (
-              <TableCell key={index} className="text-xs">
-                {sentiment.score}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableBody>
-      </Table>
-      <Table className="border">
-        <TableCaption>Sentiment Scores</TableCaption>
-        <TableHeader>
-          <TableRow className="bg-zinc-200">
-            {sentiments.slice(14).map((sentiment, index) => (
-              <TableHead key={index} className="capitalize font-md text-xs">
-                {sentiment.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            {sentiments.slice(14).map((sentiment, index) => (
-              <TableCell key={index} className="text-xs">
-                {sentiment.score}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableBody>
-      </Table>
+      {sliceNumbers.map((item, index) => (
+        <Table key={index} className="border">
+          <TableHeader>
+            <TableRow className="bg-zinc-200">
+              {sentiments
+                .slice(item.first, item.second)
+                .map((sentiment, index) => (
+                  <TableHead key={index} className="capitalize font-md">
+                    {sentiment.label}
+                  </TableHead>
+                ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              {sentiments
+                .slice(item.first, item.second)
+                .map((sentiment, index) => (
+                  <TableCell key={index} className="text-xs">
+                    {sentiment.score}
+                  </TableCell>
+                ))}
+            </TableRow>
+          </TableBody>
+        </Table>
+      ))}
     </div>
   );
 };

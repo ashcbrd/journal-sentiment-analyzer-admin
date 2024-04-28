@@ -1,7 +1,6 @@
-import axios from "axios";
 // NOTE: Created an axios instance in utils
 import { axiosInstance } from "../lib/utils";
-
+import { useUser } from "@/context/user-context";
 
 interface UserData {
   email: string;
@@ -15,8 +14,9 @@ interface LoginData {
   password: string;
 }
 
-interface ApiResponse<T = any> {
-  data: T;
+interface ApiResponse {
+  detail: string;
+  _id: string;
 }
 
 // MARK: Admin register
@@ -28,6 +28,9 @@ export const register = async (userData: UserData): Promise<ApiResponse> => {
       `/admin/register`,
       userData
     );
+
+    localStorage.setItem("userId", response.data._id);
+
     return response.data;
   } catch (error: any) {
     throw error.response.data;
@@ -45,7 +48,8 @@ export const login = async (
       `/admin/login`,
       { email, password }
     );
-    console.log("response", response.data)
+
+    localStorage.setItem("userId", response.data._id);
     return response.data;
   } catch (error: any) {
     throw error.response.data;
