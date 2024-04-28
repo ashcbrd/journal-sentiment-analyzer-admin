@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -10,12 +9,24 @@ import {
 } from "@/components/ui/table";
 
 import response from "../../data/students.json";
-import { useEffect } from "react";
+import { axiosInstance } from "@/lib/utils";
 
-const DashboardPage = () => {
-  const students = response.data;
+async function getData() {
+  const response = axiosInstance
+    .get(`/student`, {})
+    .then((response) => {
+      let result = response;
+      return result;
+    })
+    .catch((error) => {
+      console.log("Error", error);
+    });
 
+  return response;
+}
 
+const StudentsPage = async () => {
+  const students = await getData();
 
   return (
     <div className="w-full">
@@ -30,20 +41,23 @@ const DashboardPage = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {students.map((student, index) => (
-            <TableRow key={index}>
-              <TableCell className="font-semibold capitalize">
-                {student.firstName} {student.lastName}
-              </TableCell>
-              <TableCell>{student.email}</TableCell>
-              <TableCell>{student.course}</TableCell>
-              <TableCell>{student.year}</TableCell>
-            </TableRow>
-          ))}
+          {students &&
+            students.data.map((student, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-semibold capitalize">
+                  {student.userName
+                    ? student.userName
+                    : `${student.firstName}  ${student.lastName}`}
+                </TableCell>
+                <TableCell>{student.email}</TableCell>
+                <TableCell>{student.course}</TableCell>
+                <TableCell>{student.year}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>
   );
 };
 
-export default DashboardPage;
+export default StudentsPage;

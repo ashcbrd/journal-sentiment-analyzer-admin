@@ -11,7 +11,8 @@ export default function Home() {
           PROCESSING
         </h1>
         <p className="text-center text-xl text-primary/80">
-        Gain Deeper Insights, Foster Engagement: Understand Your Students&apos; Sentiments!
+          Gain Deeper Insights, Foster Engagement: Understand Your
+          Students&apos; Sentiments!
         </p>
 
         <Link href="/students">

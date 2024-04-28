@@ -4,9 +4,25 @@ import { Button } from "@/components/ui/button";
 import response from "../../../../data/journals.json";
 import BackButtonClient from "@/components/back-button-client";
 import JournalClient from "@/components/journal-client";
+import { axiosInstance } from "@/lib/utils";
 
-export default function JournalPage({ params }: { params: { slug: string } }) {
-  const journal = response.data.find((item) => item._id === params.slug);
+async function getData(id: string) {
+  const response = axiosInstance
+    .get(`/journal/${id}`, {})
+    .then((response) => {
+      let result = response;
+      return result;
+    })
+    .catch((error) => {
+      console.log("Error", error);
+    });
+
+  return response;
+}
+
+const JournalPage = async ({ params }: { params: { slug: string } }) => {
+  // const journal = response.data.find((item) => item._id === params.slug);
+  const journal = await getData(params.slug);
 
   return (
     <div>
@@ -24,4 +40,6 @@ export default function JournalPage({ params }: { params: { slug: string } }) {
       <JournalClient sentiments={journal?.sentiment_score} />
     </div>
   );
-}
+};
+
+export default JournalPage;
