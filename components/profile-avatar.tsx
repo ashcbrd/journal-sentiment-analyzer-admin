@@ -1,3 +1,5 @@
+import { IoLogOut } from "react-icons/io5";
+
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -10,12 +12,10 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { User, useUser } from "@/context/user-context";
@@ -28,7 +28,7 @@ const ProfileAvatar: React.FC<IProfile> = ({ user }) => {
   const { logout } = useUser();
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-y-4">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
@@ -42,22 +42,21 @@ const ProfileAvatar: React.FC<IProfile> = ({ user }) => {
           <Link href={`/profile/${user._id}`}>
             <DropdownMenuItem>Profile</DropdownMenuItem>
           </Link>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <Dialog>
-              <DialogTrigger>Log Out</DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Are you sure you want to log out?</DialogTitle>
-                  <Button onClick={logout} className="ml-auto">
-                    Log Out
-                  </Button>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <Dialog>
+        <DialogTrigger>
+          <IoLogOut size={30} className="text-primary" />
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you sure you want to log out?</DialogTitle>
+          </DialogHeader>
+          <Button onClick={logout} className="ml-auto">
+            Log Out
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
