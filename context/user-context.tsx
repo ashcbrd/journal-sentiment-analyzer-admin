@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export type User = {
   _id?: string;
@@ -20,10 +21,12 @@ interface UserProviderProps {
 }
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>({});
+  const router = useRouter();
 
   const logout = () => {
     setUser({});
     localStorage.removeItem("userId");
+    router.push("/");
   };
 
   return (
