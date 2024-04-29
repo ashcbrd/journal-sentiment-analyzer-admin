@@ -45,9 +45,9 @@ const JournalPage = ({ params }: { params: { slug: string } }) => {
             <h2 className="font-semibold text-4xl">{journal?.title}</h2>
             <p className="mt-2 text-zinc-600 text-lg">
               Author:{" "}
-              {journal?.student_details.userName
-                ? journal.student_details.userName
-                : `${journal?.student_details.firstName} ${journal?.student_details.lastName}`}
+              {journal?.student_details?.userName
+                ? journal.student_details?.userName
+                : `${journal?.student_details?.firstName} ${journal?.student_details?.lastName}`}
             </p>
           </div>
           <Link href={`/message/student/${journal?.student_id}`}>
