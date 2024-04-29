@@ -1,6 +1,6 @@
 import Cookie from "js-cookie";
 
 export const checkAuth = () => {
-  const token = Cookie.get("token");
+  const token = Cookie.get("admin-token");
   return !!token;
 };
