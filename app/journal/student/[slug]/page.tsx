@@ -40,7 +40,7 @@ const JournalPage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div>
-      <BackButtonClient />
+      <BackButtonClient variant="outline" />
       <div className="flex flex-col w-full mt-10">
         <div className="flex w-full justify-between items-center">
           <h2 className="font-semibold text-4xl">{journal?.title}</h2>
