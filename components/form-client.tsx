@@ -7,7 +7,6 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useUser } from "@/context/user-context";
-import Cookies from "js-cookie";
 
 interface FormClientProps {
   name: string;
@@ -48,10 +47,12 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
           router.push("/students");
         } catch (error) {}
       } else if (name === "register") {
-        const registerResponse = await register(formData);
-        console.log("Register Success:", registerResponse);
-        setUser(registerResponse);
-        router.push("/students");
+        try {
+          const registerResponse = await register(formData);
+          console.log("Register Success:", registerResponse);
+          setUser(registerResponse);
+          router.push("/students");
+        } catch (error) {}
       }
     } catch (error) {
       console.error("Error:", error || "Unknown Error");
