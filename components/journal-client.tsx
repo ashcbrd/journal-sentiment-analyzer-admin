@@ -56,7 +56,7 @@ const JournalClient = ({ sentiments }: { sentiments: SentimentProps }) => {
         <SentimentScoreTable sentiments={sentiments} />
       ) : (
         // @ts-ignore
-        <SentimentBarChart sentiments={sentiments} />
+        sentiments && <SentimentBarChart sentiments={sentiments} />
       )}
     </div>
   );
@@ -65,11 +65,11 @@ const JournalClient = ({ sentiments }: { sentiments: SentimentProps }) => {
 export default JournalClient;
 
 const SentimentBarChart: React.FC<SentimentProps> = ({ sentiments }) => {
-  const maxValue = Math.max(...sentiments?.map((sentiment) => sentiment.score));
+  const maxValue = Math.max(...sentiments.map((sentiment) => sentiment.score));
 
   return (
     <div className="flex flex-col gap-y-2 items-center justify-center space-y-2 bg-secondary rounded p-4 border bg-white">
-      {sentiments?.map((sentiment, index) => (
+      {sentiments.map((sentiment, index) => (
         <div key={index} className="w-full flex items-center gap-x-4">
           <span className="min-w-32 capitalize font-medium">
             {sentiment.label}
