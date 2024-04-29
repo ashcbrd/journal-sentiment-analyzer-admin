@@ -29,7 +29,6 @@ function getData() {
 const JournalPage = () => {
   // const journals = await getData();
 
-  const journals = await getData();
   const [journals, setJournals] = useState(null);
 
   usePublicRouteRedirect();
@@ -52,9 +51,9 @@ const JournalPage = () => {
                     {journal.title}{" "}
                     <span className="text-zinc-700 flex items-center gap-x-1 text-sm font-normal bg-zinc-200 py-1 px-2 rounded ml-4">
                       <FaUser size={12} />{" "}
-                      {journal.student_details.userName
-                        ? journal.student_details.userName
-                        : `${journal.student_details.firstName} ${journal.student_details.lastName}`}
+                      {journal.student_details?.userName
+                        ? journal.student_details?.userName
+                        : `${journal.student_details?.firstName} ${journal.student_details?.lastName}`}
                     </span>
                   </CardTitle>
                   <CardDescription className="truncate">
