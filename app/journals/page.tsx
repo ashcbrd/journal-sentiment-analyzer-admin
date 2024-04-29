@@ -43,7 +43,7 @@ const JournalPage = () => {
     <div>
       <div className="w-full grid grid-cols-3 gap-10">
         {journals &&
-          journals.data.map((journal, index) => (
+          journals.map((journal, index) => (
             <Link href={`/journal/student/${journal._id}`} key={index}>
               <Card className="hover:bg-zinc-50">
                 <CardHeader>
