@@ -50,8 +50,7 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
         try {
           const registerResponse = await register(formData);
           console.log("Register Success:", registerResponse);
-          setUser(registerResponse);
-          router.push("/students");
+          router.push("/login");
         } catch (error) {}
       }
     } catch (error) {

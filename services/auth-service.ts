@@ -29,8 +29,6 @@ export const register = async (userData: UserData): Promise<ApiResponse> => {
       userData
     );
 
-    Cookie.set("admin-token", response.data._id);
-
     return response.data;
   } catch (error: any) {
     throw error.response.data;
