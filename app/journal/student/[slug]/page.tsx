@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -5,8 +6,10 @@ import response from "../../../../data/journals.json";
 import BackButtonClient from "@/components/back-button-client";
 import JournalClient from "@/components/journal-client";
 import { axiosInstance } from "@/lib/utils";
+import {useEffect, useState} from "react"
 
-async function getData(id: string) {
+
+ function getData(id: string) {
   const response = axiosInstance
     .get(`/journal/${id}`, {})
     .then((response) => {
@@ -20,9 +23,18 @@ async function getData(id: string) {
   return response;
 }
 
-const JournalPage = async ({ params }: { params: { slug: string } }) => {
+const JournalPage =  ({ params }: { params: { slug: string } }) => {
   // const journal = response.data.find((item) => item._id === params.slug);
-  const journal = await getData(params.slug);
+  // const journal = await getData(params.slug);
+
+  const [journal, setJournal] = useState(null);
+  
+  useEffect(() => {
+    getData([params.slug]).then((data) => {
+      console.log(data)
+      setJournal(data.data);
+    });
+  }, []);
 
   return (
     <div>
