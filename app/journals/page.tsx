@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { FaUser } from "react-icons/fa";
 
 import {
   Card,
@@ -28,7 +29,7 @@ function getData() {
 const JournalPage = () => {
   // const journals = await getData();
 
-  // const journals = await getData();
+  const journals = await getData();
   const [journals, setJournals] = useState(null);
 
   usePublicRouteRedirect();
@@ -47,7 +48,15 @@ const JournalPage = () => {
             <Link href={`/journal/student/${journal._id}`} key={index}>
               <Card className="hover:bg-zinc-50">
                 <CardHeader>
-                  <CardTitle>{journal.title}</CardTitle>
+                  <CardTitle className="flex items-center">
+                    {journal.title}{" "}
+                    <span className="text-zinc-700 flex items-center gap-x-1 text-sm font-normal bg-zinc-200 py-1 px-2 rounded ml-4">
+                      <FaUser size={12} />{" "}
+                      {journal.student_details.userName
+                        ? journal.student_details.userName
+                        : `${journal.student_details.firstName} ${journal.student_details.lastName}`}
+                    </span>
+                  </CardTitle>
                   <CardDescription className="truncate">
                     {journal.entry}
                   </CardDescription>

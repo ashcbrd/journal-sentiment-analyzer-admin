@@ -2,7 +2,6 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import response from "../../../../data/journals.json";
 import BackButtonClient from "@/components/back-button-client";
 import JournalClient from "@/components/journal-client";
 import { axiosInstance } from "@/lib/utils";
@@ -24,7 +23,6 @@ function getData(id: string) {
 }
 
 const JournalPage = ({ params }: { params: { slug: string } }) => {
-  // const journal = response.data.find((item) => item._id === params.slug);
   // const journal = await getData(params.slug);
 
   const [journal, setJournal] = useState(null);
@@ -43,7 +41,15 @@ const JournalPage = ({ params }: { params: { slug: string } }) => {
       <BackButtonClient variant="outline" />
       <div className="flex flex-col w-full mt-10">
         <div className="flex w-full justify-between items-center">
-          <h2 className="font-semibold text-4xl">{journal?.title}</h2>
+          <div className="">
+            <h2 className="font-semibold text-4xl">{journal?.title}</h2>
+            <p className="mt-2 text-zinc-600 text-lg">
+              Author:{" "}
+              {journal?.student_details.userName
+                ? journal.student_details.userName
+                : `${journal?.student_details.firstName} ${journal?.student_details.lastName}`}
+            </p>
+          </div>
           <Link href={`/message/student/${journal?.student_id}`}>
             <Button className="px-10">Message</Button>
           </Link>
