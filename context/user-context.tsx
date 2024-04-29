@@ -26,7 +26,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser({});
-    Cookie.remove("token");
+    Cookie.remove("admin-token");
     router.push("/");
   };
 
