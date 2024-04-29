@@ -30,7 +30,7 @@ const JournalPage =  ({ params }: { params: { slug: string } }) => {
   const [journal, setJournal] = useState(null);
   
   useEffect(() => {
-    getData([params.slug]).then((data) => {
+    getData(params.slug).then((data) => {
       console.log(data)
       setJournal(data.data);
     });
