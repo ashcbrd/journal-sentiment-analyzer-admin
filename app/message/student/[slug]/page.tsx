@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button";
 import response from "../../../../data/students.json";
 import BackButtonClient from "@/components/back-button-client";
 import { Input } from "@/components/ui/input";
+import { usePublicRouteRedirect } from "@/hooks/use-auth-redirection";
 
 export default function JournalPage({ params }: { params: { slug: string } }) {
   const [message, setMessage] = useState<string>("");
   const [sentMessage, setSentMessage] = useState<string[]>([]);
 
   const student = response.data.find((item) => item._id === params.slug);
+
+  usePublicRouteRedirect();
 
   const handleSendMessage = () => {
     if (message.trim()) {

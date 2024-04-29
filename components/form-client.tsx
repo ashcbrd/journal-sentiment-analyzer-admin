@@ -7,6 +7,7 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useUser } from "@/context/user-context";
+import Cookies from "js-cookie";
 
 interface FormClientProps {
   name: string;

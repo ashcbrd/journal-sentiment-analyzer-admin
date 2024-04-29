@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Table,
   TableBody,
@@ -8,11 +8,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
 import response from "../../data/students.json";
 import { axiosInstance } from "@/lib/utils";
+import { usePublicRouteRedirect } from "@/hooks/use-auth-redirection";
+import { checkAuth } from "@/lib/check-auth";
 
- function getData() {
+function getData() {
   const response = axiosInstance
     .get(`/student`, {})
     .then((response) => {
@@ -26,6 +28,8 @@ import { axiosInstance } from "@/lib/utils";
   return response;
 }
 
+console.log(checkAuth());
+
 const StudentsPage = () => {
   // const students = await getData();
   const [students, setStudents] = useState(null);
@@ -36,6 +40,7 @@ const StudentsPage = () => {
     });
   }, []);
 
+  usePublicRouteRedirect();
 
   return (
     <div className="w-full">

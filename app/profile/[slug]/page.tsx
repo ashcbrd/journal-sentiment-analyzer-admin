@@ -1,24 +1,29 @@
+"use client";
+
 import BackButtonClient from "@/components/back-button-client";
 import { Button } from "@/components/ui/button";
 import { axiosInstance } from "@/lib/utils";
 import { useUser } from "@/context/user-context";
+import { usePublicRouteRedirect } from "@/hooks/use-auth-redirection";
 
-async function getData(id: string) {
-  const response = axiosInstance
-    .get(`/admin/${id}`, {})
-    .then((response) => {
-      let result = response;
-      return result;
-    })
-    .catch((error) => {
-      console.log("Error", error);
-    });
+// function getData(id: string) {
+//   const response = axiosInstance
+//     .get(`/admin/${id}`, {})
+//     .then((response) => {
+//       let result = response;
+//       return result;
+//     })
+//     .catch((error) => {
+//       console.log("Error", error);
+//     });
 
-  return response;
-}
+//   return response;
+// }
 
-const ProfilePage = async ({ params }: { params: { slug: string } }) => {
-  const user = await getData(params.slug);
+const ProfilePage = ({ params }: { params: { slug: string } }) => {
+  const { user } = useUser();
+
+  usePublicRouteRedirect();
 
   return (
     <div className="flex items-center justify-center h-screen">

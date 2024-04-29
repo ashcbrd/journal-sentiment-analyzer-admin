@@ -1,6 +1,6 @@
 // NOTE: Created an axios instance in utils
 import { axiosInstance } from "../lib/utils";
-import { useUser } from "@/context/user-context";
+import Cookie from "js-cookie";
 
 interface UserData {
   email: string;
@@ -29,7 +29,7 @@ export const register = async (userData: UserData): Promise<ApiResponse> => {
       userData
     );
 
-    localStorage.setItem("userId", response.data._id);
+    Cookie.set("token", response.data._id);
 
     return response.data;
   } catch (error: any) {
@@ -48,8 +48,7 @@ export const login = async (
       `/admin/login`,
       { email, password }
     );
-
-    localStorage.setItem("userId", response.data._id);
+    Cookie.set("token", response.data._id);
     return response.data;
   } catch (error: any) {
     throw error.response.data;
