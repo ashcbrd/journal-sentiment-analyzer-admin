@@ -1,3 +1,4 @@
+"use client"
 import {
   Table,
   TableBody,
@@ -7,11 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import {useEffect, useState} from "react"
 import response from "../../data/students.json";
 import { axiosInstance } from "@/lib/utils";
 
-async function getData() {
+ function getData() {
   const response = axiosInstance
     .get(`/student`, {})
     .then((response) => {
@@ -25,8 +26,16 @@ async function getData() {
   return response;
 }
 
-const StudentsPage = async () => {
-  const students = await getData();
+const StudentsPage = () => {
+  // const students = await getData();
+  const [students, setStudents] = useState(null);
+
+  useEffect(() => {
+    getData().then((data) => {
+      setStudents(data);
+    });
+  }, []);
+
 
   return (
     <div className="w-full">

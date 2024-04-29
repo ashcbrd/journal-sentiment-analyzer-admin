@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 
 import {
@@ -7,8 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { axiosInstance } from "@/lib/utils";
+import {useEffect, useState} from "react"
 
-async function getData() {
+
+ function getData() {
   const response = axiosInstance
     .get(`/journal`, {})
     .then((response) => {
@@ -22,8 +25,17 @@ async function getData() {
   return response;
 }
 
-const JournalPage = async () => {
-  const journals = await getData();
+const JournalPage =  () => {
+  // const journals = await getData();
+
+    // const journals = await getData();
+    const [journals, setJournals] = useState(null);
+  
+    useEffect(() => {
+      getData().then((data) => {
+        setJournals(data);
+      });
+    }, []);
 
   return (
     <div>
@@ -45,5 +57,6 @@ const JournalPage = async () => {
     </div>
   );
 };
+
 
 export default JournalPage;
