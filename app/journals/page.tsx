@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 
 import {
@@ -8,10 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { axiosInstance } from "@/lib/utils";
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
+import { usePublicRouteRedirect } from "@/hooks/use-auth-redirection";
 
-
- function getData() {
+function getData() {
   const response = axiosInstance
     .get(`/journal`, {})
     .then((response) => {
@@ -25,17 +25,19 @@ import {useEffect, useState} from "react"
   return response;
 }
 
-const JournalPage =  () => {
+const JournalPage = () => {
   // const journals = await getData();
 
-    // const journals = await getData();
-    const [journals, setJournals] = useState(null);
-  
-    useEffect(() => {
-      getData().then((data) => {
-        setJournals(data);
-      });
-    }, []);
+  // const journals = await getData();
+  const [journals, setJournals] = useState(null);
+
+  usePublicRouteRedirect();
+
+  useEffect(() => {
+    getData().then((data) => {
+      setJournals(data);
+    });
+  }, []);
 
   return (
     <div>
@@ -57,6 +59,5 @@ const JournalPage =  () => {
     </div>
   );
 };
-
 
 export default JournalPage;

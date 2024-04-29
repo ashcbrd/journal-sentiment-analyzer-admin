@@ -1,11 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import response from "../../data/students.json";
 import { Button } from "@/components/ui/button";
 import EmptyState from "../empty-state";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { usePublicRouteRedirect } from "@/hooks/use-auth-redirection";
 
 const ChatPage = () => {
   const students = response.data;
+
+  usePublicRouteRedirect();
+
   return (
     <div className="flex flex-col gap-y-4 px-4">
       <div className="flex gap-x-10 mb-20">

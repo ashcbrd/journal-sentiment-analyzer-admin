@@ -1,7 +1,12 @@
+"use client";
+
 import FormClient from "@/components/form-client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { usePrivateRouteRedirect } from "@/hooks/use-auth-redirection";
 
 const AuthPage = () => {
+  usePrivateRouteRedirect();
+
   return (
     <div className="flex flex-col gap-y-6 bg-white p-10 rounded-lg shadow-lg shadow-zinc-200/70">
       <h1 className="text-center font-bold text-4xl">LOGO HERE</h1>

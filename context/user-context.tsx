@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookie from "js-cookie";
 
 export type User = {
   _id?: string;
@@ -25,7 +26,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser({});
-    localStorage.removeItem("userId");
+    Cookie.remove("token");
     router.push("/");
   };
 
