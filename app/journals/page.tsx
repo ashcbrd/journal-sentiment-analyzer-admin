@@ -35,8 +35,11 @@ const JournalPage = () => {
 
   useEffect(() => {
     getData().then((data) => {
-      setJournals(data);
+      setJournals(data.data);
+      console.log("data:", data)
+      console.log("journals", journals)
     });
+
   }, []);
 
   return (
