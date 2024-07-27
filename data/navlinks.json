@@ -10,7 +10,11 @@
       "label": "Journals",
       "url": "/journals"
     },
-
+    {
+      "id": 4,
+      "label": "Emotions",
+      "url": "/emotions"
+    },
     {
       "id": 3,
       "label": "Messages",

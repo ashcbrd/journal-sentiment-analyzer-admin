@@ -3,6 +3,7 @@
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { IoIosJournal } from "react-icons/io";
 import { AiFillMessage } from "react-icons/ai";
+import { MdEmojiEmotions } from "react-icons/md";
 import { usePathname } from "next/navigation";
 
 import navliks from "../data/navlinks.json";
@@ -19,6 +20,7 @@ import { useUser } from "@/context/user-context";
 const icons = [
   <HiMiniUserGroup key="userGroupIcon" size={30} />,
   <IoIosJournal key="journalIcon" size={30} />,
+  <MdEmojiEmotions key="emotionIcon" size={30} />,
   <AiFillMessage key="chatIcon" size={30} />,
 ];
 
@@ -41,7 +43,7 @@ const SideNavigation = () => {
                 }`}
               >
                 <TooltipProvider>
-                  <Tooltip>
+                  <Tooltip delayDuration={0}>
                     <TooltipTrigger>{icons[index]}</TooltipTrigger>
                     <TooltipContent align="start">
                       <p>{item.label}</p>

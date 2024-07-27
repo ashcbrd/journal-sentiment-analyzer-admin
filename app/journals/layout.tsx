@@ -11,7 +11,7 @@ export default function JournalsPageLayout({
       <SideNavigation />
       <div className="ml-[100px] px-10 py-4 h-screen">
         <PageHeader>Journals</PageHeader>
-        <div>{children}</div>
+        <div className="h-full">{children}</div>
       </div>
     </>
   );
