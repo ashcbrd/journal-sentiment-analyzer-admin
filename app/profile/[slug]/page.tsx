@@ -20,8 +20,8 @@ import { usePublicRouteRedirect } from "@/hooks/use-auth-redirection";
 //   return response;
 // }
 
-const ProfilePage = ({ params }: { params: { slug: string } }) => {
-  const { user } = useUser();
+const ProfilePage = () => {
+  const user = JSON.parse(localStorage.getItem("adminUser")!);
 
   usePublicRouteRedirect();
 
@@ -36,7 +36,6 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
           <h2 className="text-primary text-3xl font-semibold">
             Profile Details
           </h2>
-          <Button className="px-6">Edit</Button>
         </div>
         <div className="flex flex-col gap-y-2 mt-6">
           <div>

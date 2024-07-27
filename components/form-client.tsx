@@ -7,6 +7,8 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useUser } from "@/context/user-context";
+import { toast } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface FormClientProps {
   name: string;
@@ -30,8 +32,9 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
   const router = useRouter();
   const { setUser } = useUser();
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("api base url:  ", process.env.BASE_API_URL);
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -44,14 +47,32 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
           const loginResponse = await login(formData.email, formData.password);
           console.log("Login Success:", loginResponse);
           setUser(loginResponse);
+          localStorage.setItem("adminUser", JSON.stringify(loginResponse));
+          toast.success("Login Successful");
           router.push("/students");
-        } catch (error) {}
+        } catch (error) {
+          toast.error("Invalid Credentials");
+          setFormData({
+            email: "",
+            password: "",
+          });
+        }
       } else if (name === "register") {
         try {
           const registerResponse = await register(formData);
           console.log("Register Success:", registerResponse);
+          toast.success("Registration Successful");
+          localStorage.setItem("adminUser", JSON.stringify(registerResponse));
           router.push("/auth");
-        } catch (error) {}
+        } catch (error) {
+          toast.error("Registration Failed");
+          setFormData({
+            email: "",
+            password: "",
+            firstName: "",
+            lastName: "",
+          });
+        }
       }
     } catch (error) {
       console.error("Error:", error || "Unknown Error");
@@ -73,14 +94,33 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
               className="p-2 px-3"
             />
             <Label htmlFor="password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="p-2 px-3"
-            />
+            <div className="flex items-center">
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="p-2 px-3"
+              />
+              {!!formData.password.length && (
+                <>
+                  {showPassword ? (
+                    <FaEye
+                      size={20}
+                      className="-ml-8 cursor-pointer"
+                      onClick={() => setShowPassword(false)}
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      className="-ml-8 cursor-pointer"
+                      onClick={() => setShowPassword(true)}
+                    />
+                  )}
+                </>
+              )}
+            </div>
           </>
         ) : (
           <>
@@ -112,14 +152,33 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
               className="p-2 px-3"
             />
             <Label htmlFor="password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="p-2 px-3"
-            />
+            <div className="flex items-center">
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="p-2 px-3"
+              />
+              {!!formData.password.length && (
+                <>
+                  {showPassword ? (
+                    <FaEye
+                      size={20}
+                      className="-ml-8 cursor-pointer"
+                      onClick={() => setShowPassword(false)}
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      className="-ml-8 cursor-pointer"
+                      onClick={() => setShowPassword(true)}
+                    />
+                  )}
+                </>
+              )}
+            </div>
           </>
         )}
         <Button type="submit" className="w-full mt-6 capitalize text-md">

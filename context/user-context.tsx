@@ -27,6 +27,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const logout = () => {
     setUser({});
     Cookie.remove("admin-token");
+    localStorage.removeItem("adminUser");
     router.push("/");
   };
 
