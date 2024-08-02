@@ -49,7 +49,7 @@ const FormClient: React.FC<FormClientProps> = ({ name }) => {
           setUser(loginResponse);
           localStorage.setItem("adminUser", JSON.stringify(loginResponse));
           toast.success("Login Successful");
-          router.push("/students");
+          router.push("/dashboard");
         } catch (error) {
           toast.error("Invalid Credentials");
           setFormData({

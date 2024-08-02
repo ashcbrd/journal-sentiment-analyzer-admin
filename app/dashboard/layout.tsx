@@ -9,10 +9,10 @@ export default function JournalsPageLayout({
   return (
     <div className="flex">
       <SideNavigation />
-      <div className="w-full h-screen py-6 pr-10">
+      <div className="h-screen py-6 pr-10 w-full">
         <div className="border rounded-xl bg-white px-10 h-full pb-6 overflow-hidden">
-          <PageHeader>Emotions</PageHeader>
-          <div className="h-[80%] overflow-y-scroll px-4 pb-4">{children}</div>
+          <PageHeader>Dashboard</PageHeader>
+          <div className="h-[80%] px-4 pb-4">{children}</div>
         </div>
       </div>
     </div>

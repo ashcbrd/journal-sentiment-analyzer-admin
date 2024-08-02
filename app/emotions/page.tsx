@@ -54,7 +54,7 @@ const EmotionsPage = () => {
       {isLoading ? (
         <Spinner label="Loading Emotions..." />
       ) : (
-        <div className="w-full grid grid-cols-4 gap-10 pb-20">
+        <div className="w-full grid grid-cols-3 gap-10 pb-20">
           {emotions &&
             Object.entries(emotions).map(([emotion, students], index) => (
               <Dialog key={index}>
