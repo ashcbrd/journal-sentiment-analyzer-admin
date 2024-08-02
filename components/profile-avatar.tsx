@@ -31,7 +31,7 @@ const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
           <div className="flex items-center gap-x-2">
             <Avatar
               style={{ marginLeft: "4px" }}
-              className="bg-zinc-500 flex items-center justify-center rounded-lg"
+              className="bg-zinc-500 border-2 border-zinc-200 flex items-center justify-center rounded-lg"
             >
               <p className="uppercase font-semibold text-white">
                 {user.firstName[0]}
