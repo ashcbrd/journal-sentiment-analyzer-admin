@@ -1,4 +1,5 @@
 import PageHeader from "@/components/page-header";
+import { Separator } from "@/components/ui/separator";
 import SideNavigation from "@/containers/side-navigation";
 
 export default function JournalsPageLayout({
@@ -10,9 +11,8 @@ export default function JournalsPageLayout({
     <div className="flex">
       <SideNavigation />
       <div className="h-screen py-6 pr-10 w-full">
-        <div className="border rounded-xl bg-white px-10 h-full pb-6 overflow-hidden">
-          <PageHeader>Dashboard</PageHeader>
-          <div className="h-[80%] px-4 pb-4">{children}</div>
+        <div className="border rounded-xl bg-white  h-full overflow-hidden">
+          <div className="h-[80%]  pb-4">{children}</div>
         </div>
       </div>
     </div>

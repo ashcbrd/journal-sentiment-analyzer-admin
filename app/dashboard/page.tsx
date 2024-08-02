@@ -8,6 +8,9 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 import { IoIosJournal } from "react-icons/io";
 import { AiFillMessage } from "react-icons/ai";
 import { MdEmojiEmotions } from "react-icons/md";
+import PageHeader from "@/components/page-header";
+import { Separator } from "@/components/ui/separator";
+import CurrentTime from "@/components/current-time";
 
 function getData(url: string) {
   const response = axiosInstance
@@ -55,35 +58,45 @@ const DashboardPage = () => {
   );
 
   return (
-    <div className="grid grid-cols-2 gap-10">
-      <Link href="/students">
-        <h3>Students</h3>
-        <div className="border p-4">
-          {students ? `${students.length} Students` : "Loading Students..."}
+    <div>
+      <div className="px-10 py-6">
+        <h3 className="text-xl font-semibold">Hey, {user.firstName}!</h3>
+        <CurrentTime />
+      </div>
+      <Separator />
+      <div className="px-10 py-6">
+        <PageHeader>Dashboard</PageHeader>
+        <div className="grid grid-cols-2 gap-10">
+          <Link href="/students">
+            <h3>Students</h3>
+            <div className="border p-4">
+              {students ? `${students.length} Students` : "Loading Students..."}
+            </div>
+          </Link>
+          <Link href="/journals">
+            <h3>Journals</h3>
+            <div className="border p-4">
+              {journals ? `${journals.length} Journals` : "Loading Journals..."}
+            </div>
+          </Link>
+          <Link href="/emotions">
+            <h3>Emotions</h3>
+            <div className="border p-4">
+              {emotions
+                ? `${Object.keys(emotions).length} Emotions`
+                : "Loading Emotions..."}
+            </div>
+          </Link>
+          <Link href="/messages">
+            <h3>Messages</h3>
+            <div className="border p-4">
+              {conversations.length
+                ? `${conversations.length} Messages`
+                : "Loading Messages..."}
+            </div>
+          </Link>
         </div>
-      </Link>
-      <Link href="/journals">
-        <h3>Journals</h3>
-        <div className="border p-4">
-          {journals ? `${journals.length} Journals` : "Loading Journals..."}
-        </div>
-      </Link>
-      <Link href="/emotions">
-        <h3>Emotions</h3>
-        <div className="border p-4">
-          {emotions
-            ? `${Object.keys(emotions).length} Emotions`
-            : "Loading Emotions..."}
-        </div>
-      </Link>
-      <Link href="/messages">
-        <h3>Messages</h3>
-        <div className="border p-4">
-          {conversations.length
-            ? `${conversations.length} Messages`
-            : "Loading Messages..."}
-        </div>
-      </Link>
+      </div>
     </div>
   );
 };

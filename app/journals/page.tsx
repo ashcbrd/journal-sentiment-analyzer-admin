@@ -79,15 +79,13 @@ const JournalPage = () => {
               <p>
                 Showing {searchFilteredJournals.length}{" "}
                 {searchFilteredJournals.length > 1 ? "results" : "result"} for{" "}
-                <span className="font-semibold">{`"${search}"`}</span>
               </p>
               <Button
-                onClick={handleClearSearch}
                 variant="outline"
-                className="flex items-center gap-x-2"
+                className="flex font-semibold items-center gap-x-2"
               >
-                clear search
-                <IoMdClose size={14} />
+                {search}
+                <IoMdClose onClick={handleClearSearch} size={14} />
               </Button>
             </div>
           )}
