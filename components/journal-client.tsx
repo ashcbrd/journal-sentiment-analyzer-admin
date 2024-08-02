@@ -24,27 +24,27 @@ interface SentimentProps {
 }
 
 const JournalClient = ({ sentiments }: { sentiments: SentimentProps }) => {
-  const [layout, setLayout] = useState("table");
+  const [layout, setLayout] = useState("chart");
 
   return (
     <div className="w-full h-full">
       <div className="flex items-center justify-between w-full mt-20 mb-4">
         <h3 className="text-2xl font-semibold">Sentiment Scores</h3>
         <div className="flex items-center bg-white w-max rounded-lg">
-          <FaTable
-            onClick={() => setLayout("table")}
-            size={40}
-            className={`cursor-pointer p-2 ${
-              layout === "table"
-                ? "bg-primary text-secondary  rounded-md"
-                : "bg-none text-zinc-800"
-            }`}
-          />
           <FaChartSimple
             size={40}
             onClick={() => setLayout("chart")}
             className={`cursor-pointer p-2 ${
               layout === "chart"
+                ? "bg-primary text-secondary  rounded-md"
+                : "bg-none text-zinc-800"
+            }`}
+          />
+          <FaTable
+            onClick={() => setLayout("table")}
+            size={40}
+            className={`cursor-pointer p-2 ${
+              layout === "table"
                 ? "bg-primary text-secondary  rounded-md"
                 : "bg-none text-zinc-800"
             }`}

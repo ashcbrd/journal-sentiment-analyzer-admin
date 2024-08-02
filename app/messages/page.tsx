@@ -72,17 +72,19 @@ const ChatPage = () => {
 
   return (
     <div className="flex flex-col gap-y-4 px-4">
-      <div className="flex gap-x-10 mb-20 overflow-x-scroll">
+      <div className="flex gap-x-10 mb-10 overflow-x-scroll pb-4">
         {students &&
           students.map((student, index) => (
             <div key={index} className="flex flex-col items-center gap-y-2">
               <Link
                 key={index}
                 href={`/message/student/${student._id}`}
-                className="rounded-full bg-zinc-300 border border-blue-300 w-16 h-16 flex items-center justify-center"
+                className="group rounded-full bg-zinc-300 border border-blue-300 w-16 h-16 flex items-center justify-center"
               >
                 <Avatar className="flex uppercase font-semibold items-center justify-center">
-                  <p className="">{student.userName[0]}</p>
+                  <p className="group-hover:text-xl transition-all">
+                    {student.userName[0]}
+                  </p>
                 </Avatar>
               </Link>
               <p className="w-max">{student.userName}</p>

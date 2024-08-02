@@ -1,12 +1,17 @@
 {
   "data": [
     {
+      "id": 1,
+      "label": "Dashboard",
+      "url": "/dashboard"
+    },
+    {
       "id": 2,
       "label": "Students",
       "url": "/students"
     },
     {
-      "id": 1,
+      "id": 3,
       "label": "Journals",
       "url": "/journals"
     },
@@ -16,7 +21,7 @@
       "url": "/emotions"
     },
     {
-      "id": 3,
+      "id": 5,
       "label": "Messages",
       "url": "/messages"
     }

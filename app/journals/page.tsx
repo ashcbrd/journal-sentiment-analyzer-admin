@@ -74,13 +74,8 @@ const JournalPage = () => {
         <Spinner label="Loading Journals..." />
       ) : (
         <div className="h-full">
-          <div className="flex w-full gap-x-10">
-            <Search placeholder="Search journal..." />
-            {/* <DateFilter /> */}
-          </div>
-
           {searchResult && (
-            <div className="flex items-center gap-x-2 mt-2">
+            <div className="flex items-center gap-x-2">
               <p>
                 Showing {searchFilteredJournals.length}{" "}
                 {searchFilteredJournals.length > 1 ? "results" : "result"} for{" "}
@@ -97,7 +92,11 @@ const JournalPage = () => {
             </div>
           )}
           {searchFilteredJournals.length ? (
-            <div className="w-full grid grid-cols-3 gap-10 pb-20 mt-6">
+            <div
+              className={`w-full grid grid-cols-2 gap-10 pb-20 ${
+                searchResult && "mt-6"
+              }`}
+            >
               {searchFilteredJournals.map((journal) => (
                 <Link
                   /* @ts-ignore */
