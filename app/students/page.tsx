@@ -54,6 +54,7 @@ const StudentsPage = () => {
           <TableCaption>List of students.</TableCaption>
           <TableHeader>
             <TableRow>
+              <TableHead></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Course</TableHead>
@@ -64,6 +65,7 @@ const StudentsPage = () => {
             {students &&
               students.data.map((student, index) => (
                 <TableRow key={index}>
+                  <TableCell className="text-zinc-500">{index + 1}</TableCell>
                   <TableCell className="font-semibold capitalize">
                     {student.userName
                       ? student.userName
