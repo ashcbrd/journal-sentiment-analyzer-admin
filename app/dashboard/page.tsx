@@ -36,6 +36,7 @@ const DashboardPage = () => {
   const user = JSON.parse(localStorage.getItem("adminUser")!);
 
   const fetchData = async () => {
+    setIsLoading(true);
     const students = await getData("/student");
     const journals = await getData("/journal");
     const emotions = await getData("/journal/emotions");
@@ -45,6 +46,8 @@ const DashboardPage = () => {
     setJournals(journals.data);
     setEmotions(emotions.data);
     setMessages(messages.data);
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -68,31 +71,55 @@ const DashboardPage = () => {
         <PageHeader>Dashboard</PageHeader>
         <div className="grid grid-cols-2 gap-10">
           <Link href="/students">
-            <h3>Students</h3>
-            <div className="border p-4">
-              {students ? `${students.length} Students` : "Loading Students..."}
+            <div className="border hover:bg-zinc-200 transition-all p-6 rounded-lg h-32 bg-accent">
+              <div className="flex items-center gap-x-4">
+                <HiMiniUserGroup size={40} className="text-zinc-600" />
+                <p className="font-bold text-3xl text-zinc-600">
+                  {students && students.length}{" "}
+                  <span className="font-medium text-xl text-zinc-500">
+                    Students
+                  </span>
+                </p>
+              </div>
             </div>
           </Link>
           <Link href="/journals">
-            <h3>Journals</h3>
-            <div className="border p-4">
-              {journals ? `${journals.length} Journals` : "Loading Journals..."}
+            <div className="border hover:bg-zinc-200 transition-all p-6 rounded-lg h-32 bg-accent">
+              <div className="flex items-center gap-x-4">
+                <IoIosJournal size={40} className="text-zinc-600" />
+                <p className="font-bold text-3xl text-zinc-600">
+                  {journals && journals.length}{" "}
+                  <span className="font-medium text-xl text-zinc-500">
+                    Journals
+                  </span>
+                </p>
+              </div>
             </div>
           </Link>
           <Link href="/emotions">
-            <h3>Emotions</h3>
-            <div className="border p-4">
-              {emotions
-                ? `${Object.keys(emotions).length} Emotions`
-                : "Loading Emotions..."}
+            <div className="border hover:bg-zinc-200 transition-all p-6 rounded-lg h-32 bg-accent">
+              <div className="flex items-center gap-x-4">
+                <MdEmojiEmotions size={40} className="text-zinc-600" />
+                <p className="font-bold text-3xl text-zinc-600">
+                  {emotions && Object.keys(emotions).length}{" "}
+                  <span className="font-medium text-xl text-zinc-500">
+                    Emotions
+                  </span>
+                </p>
+              </div>
             </div>
           </Link>
           <Link href="/messages">
-            <h3>Messages</h3>
-            <div className="border p-4">
-              {conversations.length
-                ? `${conversations.length} Messages`
-                : "Loading Messages..."}
+            <div className="border hover:bg-zinc-200 transition-all p-6 rounded-lg h-32 bg-accent">
+              <div className="flex items-center gap-x-4">
+                <AiFillMessage size={40} className="text-zinc-600" />
+                <p className="font-bold text-3xl text-zinc-600">
+                  {conversations && conversations.length}{" "}
+                  <span className="font-medium text-xl text-zinc-500">
+                    Messages
+                  </span>
+                </p>
+              </div>
             </div>
           </Link>
         </div>

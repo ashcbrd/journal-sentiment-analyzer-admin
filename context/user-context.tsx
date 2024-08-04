@@ -1,7 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 
 export type User = {
@@ -24,12 +24,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>({});
   const router = useRouter();
 
+  const pathname = usePathname();
+
   const logout = () => {
+    router.push("/");
     setUser({});
     Cookie.remove("admin-token");
-    localStorage.removeItem("adminUser");
-    router.push("/");
   };
+
+  useEffect(() => {
+    if (pathname === "/") {
+      localStorage.removeItem("adminUser");
+    }
+  }, [pathname]);
 
   return (
     <UserContext.Provider value={{ user, setUser, logout }}>

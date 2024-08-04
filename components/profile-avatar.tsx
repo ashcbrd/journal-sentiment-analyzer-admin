@@ -24,6 +24,8 @@ const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
   const { logout } = useUser();
   const user = JSON.parse(localStorage.getItem("adminUser")!);
 
+  console.log("PROFILE NAV", isOpen);
+
   return (
     <div className="flex flex-col items-start gap-y-4 w-full">
       <DropdownMenu>
@@ -38,12 +40,12 @@ const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
               </p>
             </Avatar>
             <div
-              className={`text-start  w-full overflow-hidden transition-all truncate ${
+              className={`text-start overflow-hidden transition-all truncate ${
                 isOpen ? "w-full" : "w-0"
               }`}
             >
               <p className="">
-                {user.firstName} {user.lastName}
+                {user?.firstName} {user.lastName}
               </p>
               <p className="text-sm text-gray-500">{user.email}</p>
             </div>
