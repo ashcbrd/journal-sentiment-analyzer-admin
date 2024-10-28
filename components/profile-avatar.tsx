@@ -36,7 +36,7 @@ const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
               className="bg-zinc-500 border-2 border-zinc-200 flex items-center justify-center rounded-lg"
             >
               <p className="uppercase font-semibold text-white">
-                {user.firstName[0]}
+                {user?.firstName[0]}
               </p>
             </Avatar>
             <div
@@ -45,9 +45,9 @@ const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
               }`}
             >
               <p className="">
-                {user?.firstName} {user.lastName}
+                {user?.firstName} {user?.lastName}
               </p>
-              <p className="text-sm text-gray-500">{user.email}</p>
+              <p className="text-sm text-gray-500">{user?.email}</p>
             </div>
           </div>
           {isOpen && (
@@ -58,7 +58,7 @@ const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Link href={`/profile/${user._id}`}>Profile </Link>
+            <Link href={`/profile/${user?._id}`}>Profile </Link>
           </DropdownMenuItem>
           <Dialog>
             <DialogTrigger className="w-full relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
