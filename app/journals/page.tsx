@@ -219,7 +219,7 @@ const JournalPage = () => {
                                 }
                               )}
                             </p>
-                            <p className="truncate mt-2">
+                            <p className="truncate mt-2 text-start">
                               {convertToAsterisks(journal.entry)}
                             </p>
                           </CardDescription>
