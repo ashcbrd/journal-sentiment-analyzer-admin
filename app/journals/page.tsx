@@ -64,7 +64,7 @@ const JournalPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const searchResult = searchParams.get("s");
-  const [otp, setOtp] = useState<string>("");
+  const [pin, setPin] = useState<string>("");
 
   usePublicRouteRedirect();
 
@@ -112,15 +112,15 @@ const JournalPage = () => {
       .join("");
   };
 
-  const handleOtpChange = (value: string, journalId: string) => {
-    setOtp(value);
+  const handlePinChange = (value: string, journalId: string) => {
+    setPin(value);
     if (value.length === 6) {
-      handleOtpSubmit(value, journalId);
+      handlePinSubmit(value, journalId);
     }
   };
 
-  const handleOtpSubmit = (enteredOtp: string, journalId: string) => {
-    if (enteredOtp === "123456") {
+  const handlePinSubmit = (enteredPin: string, journalId: string) => {
+    if (enteredPin === "123456") {
       router.push(`/journal/student/${journalId}`);
     } else {
       toast.error("PIN is wrong! Please try again.");
@@ -182,7 +182,7 @@ const JournalPage = () => {
                 <div key={journal._id}>
                   <Dialog
                     onOpenChange={() => {
-                      if (!otp) setOtp("");
+                      if (!pin) setPin("");
                     }}
                   >
                     <DialogTrigger className="w-full">
@@ -224,7 +224,7 @@ const JournalPage = () => {
                       <InputOTP
                         maxLength={6}
                         onChange={(value) =>
-                          handleOtpChange(value, journal._id)
+                          handlePinChange(value, journal._id)
                         }
                       >
                         <InputOTPGroup>
