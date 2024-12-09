@@ -1,6 +1,6 @@
 import { ChevronsUpDown } from "lucide-react";
-
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useEffect, useState } from "react";
+import { Avatar } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,13 +18,23 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { User, useUser } from "@/context/user-context";
+import { useUser } from "@/context/user-context";
 
 const ProfileAvatar = ({ isOpen }: { isOpen?: boolean }) => {
   const { logout } = useUser();
-  const user = JSON.parse(localStorage.getItem("adminUser")!);
+  const [user, setUser] = useState<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    _id: string;
+  } | null>(null);
 
-  console.log("PROFILE NAV", isOpen);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("adminUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-start gap-y-4 w-full">
