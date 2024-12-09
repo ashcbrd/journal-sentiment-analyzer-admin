@@ -23,7 +23,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   InputOTP,
   InputOTPGroup,
@@ -220,25 +226,30 @@ const JournalPage = () => {
                         </CardHeader>
                       </Card>
                     </DialogTrigger>
-                    <DialogContent className="flex items-center justify-center w-max p-10 bg-white">
-                      <InputOTP
-                        maxLength={6}
-                        onChange={(value) =>
-                          handlePinChange(value, journal._id)
-                        }
-                      >
-                        <InputOTPGroup>
-                          <InputOTPSlot className="bg-zinc-50" index={0} />
-                          <InputOTPSlot className="bg-zinc-50" index={1} />
-                          <InputOTPSlot className="bg-zinc-50" index={2} />
-                        </InputOTPGroup>
-                        <InputOTPSeparator />
-                        <InputOTPGroup>
-                          <InputOTPSlot className="bg-zinc-50" index={3} />
-                          <InputOTPSlot className="bg-zinc-50" index={4} />
-                          <InputOTPSlot className="bg-zinc-50" index={5} />
-                        </InputOTPGroup>
-                      </InputOTP>
+                    <DialogContent className="flex flex-col justify-center w-max p-10 bg-white">
+                      <DialogTitle>
+                        Enter pin to view journal entry.
+                      </DialogTitle>
+                      <DialogDescription className="mt-4">
+                        <InputOTP
+                          maxLength={6}
+                          onChange={(value) =>
+                            handlePinChange(value, journal._id)
+                          }
+                        >
+                          <InputOTPGroup>
+                            <InputOTPSlot className="bg-zinc-50" index={0} />
+                            <InputOTPSlot className="bg-zinc-50" index={1} />
+                            <InputOTPSlot className="bg-zinc-50" index={2} />
+                          </InputOTPGroup>
+                          <InputOTPSeparator />
+                          <InputOTPGroup>
+                            <InputOTPSlot className="bg-zinc-50" index={3} />
+                            <InputOTPSlot className="bg-zinc-50" index={4} />
+                            <InputOTPSlot className="bg-zinc-50" index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </DialogDescription>
                     </DialogContent>
                   </Dialog>
                 </div>
