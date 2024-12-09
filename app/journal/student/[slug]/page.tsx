@@ -65,7 +65,7 @@ const JournalPage = ({ params }: { params: { slug: string } }) => {
                     : ""}
                 </p>
               </div>
-              <Link href={`/message/student/${journal?.student_details._id}`}>
+              <Link href={`/message/student/${journal?.student_details?._id}`}>
                 <Button className="px-10">Message</Button>
               </Link>
             </div>
