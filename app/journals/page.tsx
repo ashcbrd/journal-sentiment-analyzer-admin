@@ -23,8 +23,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { toast } from "sonner";
 
-const getData = async () => {
+interface Journal {
+  _id: string;
+  title: string;
+  entry: string;
+  created_at: string;
+  sentiment_category: string;
+  student_details?: {
+    userName?: string;
+    firstName?: string;
+    lastName?: string;
+  };
+}
+
+const getData = async (): Promise<Journal[] | null> => {
   try {
     const response = await axiosInstance.get(`/journal`);
     return response.data;
@@ -35,14 +56,15 @@ const getData = async () => {
 };
 
 const JournalPage = () => {
-  const [journals, setJournals] = useState([]);
+  const [journals, setJournals] = useState<Journal[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null); // Update to store the selected category as a string
-
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>("All Categories");
   const searchParams = useSearchParams();
   const router = useRouter();
   const searchResult = searchParams.get("s");
+  const [otp, setOtp] = useState<string>("");
 
   usePublicRouteRedirect();
 
@@ -55,7 +77,6 @@ const JournalPage = () => {
       }
       setIsLoading(false);
     };
-
     fetchJournals();
   }, []);
 
@@ -69,7 +90,7 @@ const JournalPage = () => {
     return journals.filter(
       (item) =>
         item.title.toLowerCase().includes(search) &&
-        (!selectedCategory ||
+        (selectedCategory === "All Categories" ||
           item.sentiment_category.toLowerCase() === selectedCategory)
     );
   }, [journals, search, selectedCategory]);
@@ -77,11 +98,33 @@ const JournalPage = () => {
   const handleClearSearch = () => {
     router.push("/journals");
     setSearch("");
-    setSelectedCategory(null); // Reset category when clearing search
+    setSelectedCategory("All Categories");
   };
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category); // Set the selected category
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  const convertToAsterisks = (text: string) => {
+    return text
+      .split("")
+      .map((char) => (char === " " ? " " : "*"))
+      .join("");
+  };
+
+  const handleOtpChange = (value: string, journalId: string) => {
+    setOtp(value);
+    if (value.length === 6) {
+      handleOtpSubmit(value, journalId);
+    }
+  };
+
+  const handleOtpSubmit = (enteredOtp: string, journalId: string) => {
+    if (enteredOtp === "123456") {
+      router.push(`/journal/student/${journalId}`);
+    } else {
+      toast.error("PIN is wrong! Please try again.");
+    }
   };
 
   return (
@@ -93,12 +136,12 @@ const JournalPage = () => {
           <div className="px-6 py-2 mb-4 border w-max rounded-md shadow">
             <DropdownMenu>
               <DropdownMenuTrigger className="capitalize">
-                {selectedCategory || "Category"}
+                {selectedCategory}
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>Choose a Category</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {["positive", "negative", "neutral"].map((category) => (
+                {["All Categories", "positive", "negative"].map((category) => (
                   <DropdownMenuItem
                     className={`${
                       selectedCategory === category && "bg-zinc-200"
@@ -128,6 +171,7 @@ const JournalPage = () => {
               </Button>
             </div>
           )}
+
           {searchFilteredJournals.length ? (
             <div
               className={`w-full grid grid-cols-2 gap-10 pb-20 ${
@@ -135,40 +179,69 @@ const JournalPage = () => {
               }`}
             >
               {searchFilteredJournals.map((journal) => (
-                <Link
-                  href={`/journal/student/${journal._id}`}
-                  key={journal._id}
-                >
-                  <Card className="hover:bg-zinc-50">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-x-4">
-                        <h2 className="truncate">{journal.title} </h2>
-                        <span className="text-zinc-700 flex min-w-max items-center gap-x-1 text-sm font-normal bg-zinc-200 py-1 px-2 rounded">
-                          <FaUser size={12} />
-                          {journal.student_details?.userName
-                            ? journal.student_details?.userName
-                            : `${journal.student_details?.firstName || ""} ${
-                                journal.student_details?.lastName || ""
-                              }` || "Not indicated"}
-                        </span>
-                      </CardTitle>
-                      <CardDescription>
-                        <p className="text-sm text-zinc-600 flex gap-x-1 items-center">
-                          <MdDateRange size={16} />
-                          {new Date(journal.created_at).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )}
-                        </p>
-                        <p className="truncate mt-2">{journal.entry}</p>
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
+                <div key={journal._id}>
+                  <Dialog
+                    onOpenChange={() => {
+                      if (!otp) setOtp("");
+                    }}
+                  >
+                    <DialogTrigger className="w-full">
+                      <Card className="hover:bg-zinc-50">
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-x-4">
+                            <h2 className="truncate">{journal.title}</h2>
+                            <span className="text-zinc-700 flex min-w-max items-center gap-x-1 text-sm font-normal bg-zinc-200 py-1 px-2 rounded">
+                              <FaUser size={12} />
+                              {journal.student_details?.userName
+                                ? journal.student_details?.userName
+                                : `${
+                                    journal.student_details?.firstName || ""
+                                  } ${
+                                    journal.student_details?.lastName || ""
+                                  }` || "Not indicated"}
+                            </span>
+                          </CardTitle>
+                          <CardDescription>
+                            <p className="text-sm text-zinc-600 flex gap-x-1 items-center">
+                              <MdDateRange size={16} />
+                              {new Date(journal.created_at).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                }
+                              )}
+                            </p>
+                            <p className="truncate mt-2">
+                              {convertToAsterisks(journal.entry)}
+                            </p>
+                          </CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </DialogTrigger>
+                    <DialogContent className="flex items-center justify-center w-max p-10 bg-white">
+                      <InputOTP
+                        maxLength={6}
+                        onChange={(value) =>
+                          handleOtpChange(value, journal._id)
+                        }
+                      >
+                        <InputOTPGroup>
+                          <InputOTPSlot className="bg-zinc-50" index={0} />
+                          <InputOTPSlot className="bg-zinc-50" index={1} />
+                          <InputOTPSlot className="bg-zinc-50" index={2} />
+                        </InputOTPGroup>
+                        <InputOTPSeparator />
+                        <InputOTPGroup>
+                          <InputOTPSlot className="bg-zinc-50" index={3} />
+                          <InputOTPSlot className="bg-zinc-50" index={4} />
+                          <InputOTPSlot className="bg-zinc-50" index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               ))}
             </div>
           ) : (
