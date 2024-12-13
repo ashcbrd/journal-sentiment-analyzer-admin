@@ -40,6 +40,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { IoMdClose } from "react-icons/io";
 import { Input } from "@/components/ui/input";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Journal {
   _id: string;
@@ -47,6 +55,7 @@ interface Journal {
   entry: string;
   created_at: string;
   sentiment_category: string;
+  allow_admin_read: boolean;
   student_details?: {
     userName?: string;
     firstName?: string;
@@ -55,6 +64,7 @@ interface Journal {
 }
 
 const user = JSON.parse(localStorage.getItem("adminUser")!);
+const pinEntered = sessionStorage.getItem("pinEntered")!;
 
 const getData = async (): Promise<Journal[] | null> => {
   try {
@@ -138,16 +148,27 @@ const JournalPage = () => {
     setSelectedCategory("All Categories");
   };
 
+  const handleJournalClick = (allow: boolean, journalId: string) => {
+    if (allow) {
+      router.push(`/journal/student/${journalId}`);
+    } else {
+      toast("You are not allowed to read this.");
+    }
+  };
+
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
   };
 
   const handlePinChange = (value: string) => {
+    sessionStorage.setItem("pinEntered", "Y");
     setPin(value);
   };
 
   const handleCurrentPinChange = (value: string) => {
+    sessionStorage.removeItem("pinEntered");
     setCurrentPin(value);
+    window.location.reload;
   };
 
   const handleNewPinChange = (value: string) => {
@@ -182,7 +203,9 @@ const JournalPage = () => {
 
   return (
     <div>
-      {shouldShowPinInput && (pin.length !== 6 || pin !== backendPin) ? (
+      {pinEntered !== "Y" &&
+      shouldShowPinInput &&
+      (pin.length !== 6 || pin !== backendPin) ? (
         <div className="relative top-0 left-0 w-full bg-zinc-50 p-20 flex items-center justify-center m-auto flex-col gap-y-10">
           <h2 className="font-semibold text-2xl">Enter PIN to view Journals</h2>
           <InputOTP maxLength={6} onChange={(value) => handlePinChange(value)}>
@@ -324,19 +347,53 @@ const JournalPage = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
             {filteredJournals.map((journal) => (
-              <Link href={`/journal/student/${journal._id}`} key={journal._id}>
-                <Card className="hover:bg-zinc-50">
+              <div
+                className="hover:bg-zinc-50 cursor-pointer"
+                onClick={() =>
+                  handleJournalClick(journal.allow_admin_read, journal._id)
+                }
+                key={journal._id}
+              >
+                <Card className="overflow-hidden">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-x-4">
-                      <h2 className="truncate">{journal.title}</h2>
-                      <span className="text-zinc-700 flex min-w-max items-center gap-x-1 text-sm font-normal bg-zinc-200 py-1 px-2 rounded">
-                        <FaUser size={12} />
-                        {journal.student_details?.userName ||
-                          `${journal.student_details?.firstName || ""} ${
-                            journal.student_details?.lastName || ""
-                          }` ||
-                          "Not indicated"}
-                      </span>
+                    <CardTitle className="flex items-center justify-between">
+                      <div className="flex flex-col  gap-y-2">
+                        <h2 className="truncate max-w-[200px]">
+                          {journal.title}
+                        </h2>
+                        <span className="text-zinc-700 flex w-max items-center gap-x-1 text-sm font-normal bg-zinc-200 py-1 px-2 rounded">
+                          <FaUser size={12} />
+                          {journal.student_details?.userName ||
+                            `${journal.student_details?.firstName || ""} ${
+                              journal.student_details?.lastName || ""
+                            }` ||
+                            "Not indicated"}
+                        </span>
+                      </div>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            {journal.allow_admin_read ? (
+                              <div className="bg-zinc-900 p-2 rounded-md">
+                                <FaEye size={12} color="white" />
+                              </div>
+                            ) : (
+                              <div className="bg-zinc-400 p-2 rounded-md">
+                                <FaEyeSlash size={12} color="white" />
+                              </div>
+                            )}
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {journal.allow_admin_read ? (
+                              <p>You are allowed you to read this journal.</p>
+                            ) : (
+                              <p>
+                                You are not allowed you to read this journal.
+                              </p>
+                            )}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </CardTitle>
                     <CardDescription>
                       <p className="text-sm text-zinc-600 flex gap-x-1 items-center">
@@ -346,7 +403,7 @@ const JournalPage = () => {
                     </CardDescription>
                   </CardHeader>
                 </Card>
-              </Link>
+              </div>
             ))}
 
             {filteredJournals.length === 0 && (
